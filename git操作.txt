@@ -1,0 +1,86 @@
+添加版本库：
+    git init
+git SSH Key 生成步骤：
+    设置git username useremail
+    git config --global user.name "fxd"
+    git config --global user.email "756906146@qq.com"
+    查看是否有密钥  cd ~/.ssh
+    生成密钥 ssh-keygen -t rsa -C "756906146@qq.com" 三个回车 不设置密码   最后得到 id_rsa(私钥) id_isa.pub(公钥)
+查看当点目录
+    pwd
+文件添加到版本库
+    git add .(添加所有)  git add file.txt
+    git commit -m 名称
+查看状态
+    git status
+查看更改了什么
+    git diff
+查看历史版本
+    git log(可以查看最近三次提交) git log --pretty=oneline(可以查看出更好的效果)
+开始时光穿梭
+    git reset --hard HEAD^  git reset --hard HEAD~100(前100个版本)  git reset --hard HEAD 8777b;
+查看每一条操作
+    git reflog
+让这个文件回到最近一次git commit或git add时的状态    git checkout其实是用版本库里的版本替换工作区的版本
+    git checkout -- ceshi.txt
+也可以把暂存区的修改回退到工作区
+    git rest HEAD ceshi.txt
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。
+
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+
+把本地仓库的内容推送到GitHub仓库
+    git remote add origin git@github.com:GitHub账户名/个人仓库名
+把本地库内容推送到远程
+    git push origin master  第一次推送时，远程库是空的，用 git push -u origin master
+从远程仓库克隆
+    git clone git@github.com:Github帐户名/个人仓库名
+分支
+    创建分支
+        git branch 分支名称【创建一个分支】
+        git checkout 分支名称【切换分支】
+        git checkout -b 分支名称【创建并切换分支】
+    查看当前分支
+        git branch【当前分支会有*】
+    合并分支
+        git merge 分支名称【把该分支合并到master分支上】
+    删除分支
+        git branch -d 分支名称
+    分支不合并，强行删除
+        git branch -D 分支名称
+把当前工作现场“储藏”起来，等以后恢复现场后继续工作：
+    git stash
+查看工作现场
+    git stash list
+工作现场恢复
+    git stash pop【恢复现场工作并将现场删除】
+    git stash apply【回复工作现场，不删除】   git stash drop【删除现场】
+
+查看远程仓库信息
+    git remote  【git remote -v 查看更详尽的信息】
+
+版本【tag 方便记忆，查找】
+    创建标签【默认是在最新提交的commit上创建标签】
+        git tag fxdv1.0
+        git tag fxdv1.2 版本号
+    给标签添加说明
+        git tag -a 制定标签名 -m 制定说明文字
+    查看所有标签【标签不是按时间顺序列出，而是按照字母顺序排序的】
+        git tag
+    查看标签详尽信息
+        git tag 标签名称
+    删除标签
+        git tag -d 标签名称
+    推送某个标签到远程
+        git push origin 标签名称
+    一次性推送全部尚未推送到远程的本地标签
+        git push origin --tags
+    删除远程标签
+        先从本地删除  git tag -d 标签名称
+        然后从远程删除 git push origin :refs/tags/fxdv1.0
+忽略特殊文件
+    在Git工作区的根目录下创建一个特殊的.gitignore文件，然后把要忽略的文件名填进去，Git就会自动忽略这些文件
+配置别名
+    git config --global alias.别名 真实名称
